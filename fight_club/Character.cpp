@@ -7,7 +7,6 @@ void Character::attack(Character& opponent) {
 
 void Character::printStats() const {
 	std::cout << "===== " << name << " Stats =====\n";
-	std::cout << "Health: " << health << "\n";
 	std::cout << "Wins: " << wins << " | Losses: " << losses << "\n";
 	std::cout << "=======================\n";
 }
