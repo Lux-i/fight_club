@@ -47,6 +47,42 @@ Character& selectCharacter(std::vector<Character>& characters) {
 	return selectCharacter(characters);
 }
 
+std::unique_ptr<Ability> selectAbility() {
+	std::string input;
+	unsigned int input_uint;
+	//hardcoded Ability-selector :(
+	std::cout << "1: Punch\n2: Kick\n3: Heal\n";
+	std::cout << "Your selection: ";
+	std::getline(std::cin, input);
+	input_uint = std::stoul(input);
+	switch (input_uint) {
+	case 1:
+		return std::make_unique<Punch>();
+	case 2:
+		return std::make_unique<Kick>();
+	case 3:
+		return std::make_unique<Heal>();
+	default:
+		std::cout << "Invalid Ability Number!\n\n";
+		//recursive loop
+		return selectAbility();
+	}
+}
+
+void addCharacter(std::vector<Character>& characters) {
+	std::string name;
+	std::cout << "Characters name: ";
+	std::getline(std::cin, name);
+	std::unique_ptr<Ability> ab1 = selectAbility();
+	std::unique_ptr<Ability> ab2 = selectAbility();
+	while (ab2 == ab1) {
+		std::cout << "You cannot pick the same ability 2 times!\n";
+		std::unique_ptr<Ability> ab2 = selectAbility();
+	}
+	characters.emplace_back(name, ab1, ab2);
+	std::cout << name + " has been added.\n";
+}
+
 int main() {
 	srand(time(nullptr));
 
